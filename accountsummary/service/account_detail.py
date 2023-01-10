@@ -138,7 +138,7 @@ def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
                 FROM `resident_accounts`   
                 LEFT JOIN ndis_support_category_level_details ON ndis_support_category_level_details.rsa_id = resident_accounts.id
                 WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id} 
-                AND resident_accounts.lname LIKE '%{starts_with}%' 
+                AND resident_accounts.lname LIKE '{starts_with}%'
                 GROUP BY resident_accounts.id
                 ORDER BY `resident_accounts`.`lname` ASC LIMIT {limit} offset {offset};""")
     elif rsf_id is not None and search_by_lname is not None and starts_with is not None:
@@ -289,7 +289,7 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
 
 def get_ndis(rsf_id):
     if rsf_id is not None:
-        valuess = db.query(query=f"""SELECT rf.id from residential_facilities as rf 
+        get_ndis_id = db.query(query=f"""SELECT rf.id from residential_facilities as rf 
             INNER JOIN templates temp ON temp.id = rf.temp_id WHERE temp.invoice_ndis = 1 and rf.id = {rsf_id};""")
-        return (valuess)
+        return (get_ndis_id)
 
