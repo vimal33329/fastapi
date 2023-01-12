@@ -33,14 +33,3 @@ async def get_budget_date_ndis(rsf_id: Optional[int] = None, user_id: Optional[i
 
     if user_id is not None:
         return account_detail.get_budget_date(rsf_id, user_id)
-
-@router.get("/count_of_rsaid/", tags=["Get count by rsf_id"])
-async def get_count(rsf_id: Optional[int] = None, user_id: Optional[int] = None):
-    if rsf_id is not None:
-        return account_detail.get_count_for_pagination(rsf_id, user_id)
-
-    if user_id is not None:
-        return account_detail.get_count_for_pagination(rsf_id, user_id)
-
-
-
