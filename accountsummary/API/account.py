@@ -19,7 +19,7 @@ async def get_by_rsf_id(rsf_id: Optional[int] = None, user_id: Optional[int] = N
     if user_id is not None and rsf_id is None:
         return account_detail.get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
 
-@router.get("/budget_date/", tags=["Get account details by rsf_id"])
+@router.get("/budget_date/", tags=["Get account buget details"])
 async def get_budget_date_ndis(rsf_id: Optional[int] = None, user_id: Optional[int] = None):
     if rsf_id is not None:
         get_ndis_data = account_detail.get_ndis(rsf_id)
@@ -33,6 +33,14 @@ async def get_budget_date_ndis(rsf_id: Optional[int] = None, user_id: Optional[i
 
     if user_id is not None:
         return account_detail.get_budget_date(rsf_id, user_id)
+
+@router.get("/count_of_rsaid/", tags=["Get count by rsf_id"])
+async def get_count(rsf_id: Optional[int] = None, user_id: Optional[int] = None):
+    if rsf_id is not None:
+        return account_detail.get_count_for_pagination(rsf_id, user_id)
+
+    if user_id is not None:
+        return account_detail.get_count_for_pagination(rsf_id, user_id)
 
 
 

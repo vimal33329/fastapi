@@ -279,9 +279,20 @@ def get_budget_date(rsf_id, user_id):
             WHERE resident_accounts.archived = 0 AND account_viewers.user_id = {user_id} 
             GROUP BY resident_accounts.id 
             ORDER BY `resident_accounts`.`lname` ASC LIMIT 20;""")
+
 def get_ndis(rsf_id):
     if rsf_id is not None:
         get_ndis_id = db.query(query=f"""SELECT rf.id from residential_facilities as rf 
             INNER JOIN templates temp ON temp.id = rf.temp_id WHERE temp.invoice_ndis = 1 and rf.id = {rsf_id};""")
         return (get_ndis_id)
 
+def get_count_for_pagination(rsf_id, user_id):
+    if rsf_id is not None:
+        return  db.query(query=f"""SELECT count(resident_accounts.id) as total_count
+                    FROM `resident_accounts`  
+                    WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id};""")
+    if user_id is not None:
+        return db.query(query=f"""SELECT count(resident_accounts.id) as total_count
+                    FROM `resident_accounts`  
+                    LEFT JOIN account_viewers ON account_viewers.rsa_id = resident_accounts.id
+                    WHERE resident_accounts.archived = 0 AND AND account_viewers.user_id = {user_id};""")
