@@ -20,7 +20,7 @@ async def get_by_rsf_id(rsf_id: Optional[int] = None, user_id: Optional[int] = N
         return account_detail.get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
 
 @router.get("/budget_date/", tags=["Get account buget details"])
-async def get_budget_date_ndis(rsf_id: Optional[int] = None, user_id: Optional[int] = None):
+async def get_budget_date_ndis(rsf_id: Optional[int] = None, user_id: Optional[int] = None, offset: int = 0, limit: int = Query(default=20, lte=1500)):
     if rsf_id is not None:
         get_ndis_data = account_detail.get_ndis(rsf_id)
         ndis_data = list(get_ndis_data.values())
@@ -29,7 +29,11 @@ async def get_budget_date_ndis(rsf_id: Optional[int] = None, user_id: Optional[i
             is_ndis = False
 
         if is_ndis == True:
-            return account_detail.get_budget_date(rsf_id, user_id)
+            return account_detail.get_budget_date(rsf_id, user_id, offset, limit)
 
     if user_id is not None:
-        return account_detail.get_budget_date(rsf_id, user_id)
+        return account_detail.get_budget_date(rsf_id, user_id, offset, limit)
+
+
+
+

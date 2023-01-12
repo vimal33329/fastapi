@@ -22,11 +22,11 @@ def get_acc_details(rsf_id, search_by_lname, starts_with, offset, limit):
         result["total_count"] = total_count
         result["community"] = "homecare"
         return result
-
     elif rsf_id is not None and search_by_lname is not None and starts_with is None:
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                                         FROM `resident_accounts`  
-                                        WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id};""")
+                                        WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id}
+                                        AND resident_accounts.lname LIKE '%{search_by_lname}%';""")
         result = db.query(query=f"""SELECT resident_accounts.id, resident_accounts.lname, resident_accounts.fname, resident_accounts.rsf_id,
             (SELECT count(DISTINCT t.id) as txn_count FROM transactions t WHERE t.rsa_id = resident_accounts.id AND t.invoice_no is not null AND t.spl_id <> 0 AND t.status = 0 ) as unapp_count,
             (SELECT sum(transactions.`txn_amt`) as txn_amt FROM `transactions` WHERE transactions.`rsa_id` = resident_accounts.id AND transactions.type = 1) as deposits,
@@ -48,7 +48,8 @@ def get_acc_details(rsf_id, search_by_lname, starts_with, offset, limit):
     elif rsf_id is not None and search_by_lname is None and starts_with is not None:
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                                         FROM `resident_accounts`  
-                                        WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id};""")
+                                        WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id}
+                                        AND resident_accounts.lname LIKE '{starts_with}%';""")
 
         result = db.query(query=f"""SELECT resident_accounts.id, resident_accounts.lname, resident_accounts.fname, resident_accounts.rsf_id,
             (SELECT count(DISTINCT t.id) as txn_count FROM transactions t WHERE t.rsa_id = resident_accounts.id AND t.invoice_no is not null AND t.spl_id <> 0 AND t.status = 0 ) as unapp_count,
@@ -71,7 +72,9 @@ def get_acc_details(rsf_id, search_by_lname, starts_with, offset, limit):
     elif rsf_id is not None and search_by_lname is not None and starts_with is not None:
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                                         FROM `resident_accounts`  
-                                        WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id};""")
+                                        WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id}
+                                        AND resident_accounts.lname LIKE '%{search_by_lname}%'
+                                        AND resident_accounts.lname LIKE '{starts_with}%';""")
         result = db.query(query=f"""SELECT resident_accounts.id, resident_accounts.lname, resident_accounts.fname, resident_accounts.rsf_id,
             (SELECT count(DISTINCT t.id) as txn_count FROM transactions t WHERE t.rsa_id = resident_accounts.id AND t.invoice_no is not null AND t.spl_id <> 0 AND t.status = 0 ) as unapp_count,
             (SELECT sum(transactions.`txn_amt`) as txn_amt FROM `transactions` WHERE transactions.`rsa_id` = resident_accounts.id AND transactions.type = 1) as deposits,
@@ -123,8 +126,8 @@ def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
     elif rsf_id is not None and search_by_lname is not None and starts_with is None:
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                                                 FROM `resident_accounts`  
-                                                WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id};""")
-
+                                                WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id}
+                                                 AND resident_accounts.lname LIKE '%{search_by_lname}%';""")
         result = db.query(query=f"""SELECT resident_accounts.id, resident_accounts.lname, resident_accounts.fname, resident_accounts.rsf_id, 
                 (SELECT count(DISTINCT t.id) as txn_count FROM transactions t WHERE t.rsa_id = resident_accounts.id AND t.invoice_no is not null AND t.spl_id <> 0 AND t.status = 0 ) as unapp_count,
                 (SELECT sum(transactions.`txn_amt`) as txn_amt FROM `transactions` WHERE transactions.`rsa_id` = resident_accounts.id AND transactions.type = 1) as deposits,
@@ -154,7 +157,8 @@ def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
     elif rsf_id is not None and search_by_lname is None and starts_with is not None:
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                                                 FROM `resident_accounts`  
-                                                WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id};""")
+                                                WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id}
+                                                AND resident_accounts.lname LIKE '{starts_with}%';""")
 
         result = db.query(query=f"""SELECT resident_accounts.id, resident_accounts.lname, resident_accounts.fname, resident_accounts.rsf_id, 
                 (SELECT count(DISTINCT t.id) as txn_count FROM transactions t WHERE t.rsa_id = resident_accounts.id AND t.invoice_no is not null AND t.spl_id <> 0 AND t.status = 0 ) as unapp_count,
@@ -185,7 +189,9 @@ def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
     elif rsf_id is not None and search_by_lname is not None and starts_with is not None:
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                                                 FROM `resident_accounts`  
-                                                WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id};""")
+                                                WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id}
+                                                AND resident_accounts.lname LIKE '{starts_with}%' 
+                                                AND resident_accounts.lname LIKE '%{search_by_lname}%';""")
 
         result = db.query(query=f"""SELECT resident_accounts.id, resident_accounts.lname, resident_accounts.fname, resident_accounts.rsf_id, 
                 (SELECT count(DISTINCT t.id) as txn_count FROM transactions t WHERE t.rsa_id = resident_accounts.id AND t.invoice_no is not null AND t.spl_id <> 0 AND t.status = 0 ) as unapp_count,
@@ -253,7 +259,8 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                             FROM `resident_accounts`  
                             LEFT JOIN account_viewers ON account_viewers.rsa_id = resident_accounts.id
-                            WHERE resident_accounts.archived = 0 AND AND account_viewers.user_id = {user_id};""")
+                            WHERE resident_accounts.archived = 0 AND AND account_viewers.user_id = {user_id}
+                            AND resident_accounts.lname LIKE '%{search_by_lname}%';""")
 
         result = db.query(query=f"""SELECT resident_accounts.id, resident_accounts.lname, resident_accounts.fname, 
             (SELECT count(DISTINCT t.id) as txn_count FROM transactions t WHERE t.rsa_id = resident_accounts.id AND t.invoice_no is not null AND t.spl_id <> 0 AND t.status = 0 ) as unapp_count,
@@ -288,7 +295,8 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                             FROM `resident_accounts`  
                             LEFT JOIN account_viewers ON account_viewers.rsa_id = resident_accounts.id
-                            WHERE resident_accounts.archived = 0 AND AND account_viewers.user_id = {user_id};""")
+                            WHERE resident_accounts.archived = 0 AND AND account_viewers.user_id = {user_id}
+                            AND resident_accounts.lname LIKE '{starts_with}%';""")
 
         result = db.query(query=f"""SELECT resident_accounts.id, resident_accounts.lname, resident_accounts.fname, 
             (SELECT count(DISTINCT t.id) as txn_count FROM transactions t WHERE t.rsa_id = resident_accounts.id AND t.invoice_no is not null AND t.spl_id <> 0 AND t.status = 0 ) as unapp_count,
@@ -323,7 +331,9 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                             FROM `resident_accounts`  
                             LEFT JOIN account_viewers ON account_viewers.rsa_id = resident_accounts.id
-                            WHERE resident_accounts.archived = 0 AND AND account_viewers.user_id = {user_id};""")
+                            WHERE resident_accounts.archived = 0 AND AND account_viewers.user_id = {user_id}
+                            AND resident_accounts.lname LIKE '{starts_with}%'
+                            AND resident_accounts.lname LIKE '%{search_by_lname}%';""")
 
         result = db.query(query=f"""SELECT resident_accounts.id, resident_accounts.lname, resident_accounts.fname, 
             (SELECT count(DISTINCT t.id) as txn_count FROM transactions t WHERE t.rsa_id = resident_accounts.id AND t.invoice_no is not null AND t.spl_id <> 0 AND t.status = 0 ) as unapp_count,
@@ -354,22 +364,33 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
         result["total_count"] = total_count
         result["community"] = "ndis"
         return result
-def get_budget_date(rsf_id, user_id):
+def get_budget_date(rsf_id, user_id, offset, limit):
     if rsf_id is not None:
-        return db.query(query=f"""SELECT resident_accounts.id, ndis_support_category_level_details.start_date, ndis_support_category_level_details.end_date
+        total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
+                                    FROM `resident_accounts`  
+                                    WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id};""")
+        result = db.query(query=f"""SELECT resident_accounts.id, ndis_support_category_level_details.start_date, ndis_support_category_level_details.end_date
             FROM `resident_accounts`  
             LEFT JOIN ndis_support_category_level_details ON ndis_support_category_level_details.rsa_id = resident_accounts.id 
             WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id} 
             GROUP BY resident_accounts.id
-            ORDER BY `resident_accounts`.`lname` ASC LIMIT 20;""")
+            ORDER BY `resident_accounts`.`lname` ASC LIMIT {limit} offset {offset};""")
+        result["total_count"] = total_count
+        return result
     if user_id is not None:
-        return db.query(query=f"""SELECT resident_accounts.id, ndis_support_category_level_details.start_date, ndis_support_category_level_details.end_date
+        total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
+                                    FROM `resident_accounts`  
+                                    LEFT JOIN account_viewers ON account_viewers.rsa_id = resident_accounts.id
+                                    WHERE resident_accounts.archived = 0 AND AND account_viewers.user_id = {user_id};""")
+        result = db.query(query=f"""SELECT resident_accounts.id, ndis_support_category_level_details.start_date, ndis_support_category_level_details.end_date
             FROM `resident_accounts`  
             LEFT JOIN account_viewers ON account_viewers.rsa_id = resident_accounts.id 
             LEFT JOIN ndis_support_category_level_details ON ndis_support_category_level_details.rsa_id = resident_accounts.id 
             WHERE resident_accounts.archived = 0 AND account_viewers.user_id = {user_id} 
             GROUP BY resident_accounts.id 
-            ORDER BY `resident_accounts`.`lname` ASC LIMIT 20;""")
+            ORDER BY `resident_accounts`.`lname` ASC LIMIT {limit} offset {offset};""")
+        result["total_count"] = total_count
+        return result
 
 def get_ndis(rsf_id):
     if rsf_id is not None:
