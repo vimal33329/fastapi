@@ -1,7 +1,7 @@
 ![](https://github.com/venkateshs865/capital_guardians_account_summary_api/blob/master/screenshots/logo-removebg-preview.png?raw=true)
 # Capital Guardians Account Summary API build
 In this project, we build a account summary page using FastAPI
-![](https://github.com/venkateshs865/capital_guardians_account_summary_api/blob/master/screenshots/fastapi.png?raw=true)
+![](https://upload.wikimedia.org/wikiversity/en/8/8c/FastAPI_logo.png)
 # INTRODUCTION TO FASTAPI
 Documentation: https://fastapi.tiangolo.com
 Source Code: https://github.com/tiangolo/fastapi
