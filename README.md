@@ -1,4 +1,4 @@
-![](https://beta.capitalguardians.com/img/logo.jpg)
+![](https://github.com/venkateshs865/capital_guardians_account_summary_api/blob/master/screenshots/logo-removebg-preview.png?raw=true)
 # Capital Guardians Account Summary API build
 In this project, we build a account summary page using FastAPI
 # INTRODUCTION TO FASTAPI
@@ -23,15 +23,16 @@ Basic Requirement
 - Pycharm Editor or VS code
 
 ## FastAPI Folder Structure
-&emsp;- Project
-&emsp;&emsp;&emsp;&emsp;- Sub Folder
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; - API
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; - Model
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; - Service
-&emsp;&emsp;- main.py
-&emsp;&emsp; - config.env
-&emsp;&emsp;- requirements.txt
-&emsp;&emsp;- readme
+| Project (Main Folder) |  |
+| ------ | ------ |
+| Sub Folder |  |
+|  | - `API` |
+|  | - `Model` |
+|  | - `Service` |
+| main.py |  |
+| config.env |  |
+| requirements.txt |  |
+| readme |  |
 
 ## Steps to setup your project on Local
 - Download Source code from repository or Clone the project using this command on git bash
