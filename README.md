@@ -1,7 +1,7 @@
 ![](https://github.com/venkateshs865/capital_guardians_account_summary_api/blob/master/screenshots/logo-removebg-preview.png?raw=true)
 # Capital Guardians Account Summary API build
 In this project, we build a account summary page using FastAPI
-![](https://camo.githubusercontent.com/86d9ca3437f5034da052cf0fd398299292aab0e4479b58c20f2fc37dd8ccbe05/68747470733a2f2f666173746170692e7469616e676f6c6f2e636f6d2f696d672f6c6f676f2d6d617267696e2f6c6f676f2d7465616c2e706e67)
+![](https://github.com/venkateshs865/capital_guardians_account_summary_api/blob/master/screenshots/fastapi.png?raw=true)
 # INTRODUCTION TO FASTAPI
 Documentation: https://fastapi.tiangolo.com
 Source Code: https://github.com/tiangolo/fastapi
@@ -182,6 +182,7 @@ http://127.0.0.1:8000/account_summary/?rsf_id=262&search_by_lname=sah&starts_wit
   "community": "ndis"
 }
 ```
+![](https://ml.globenewswire.com/Resource/Download/c83c4886-b215-4cf0-a973-64b8f65e7003)
 ## Docker
 **OVERVIEW**
 >Build and run an image as a container
