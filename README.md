@@ -1,4 +1,6 @@
-![](https://github.com/venkateshs865/capital_guardians_account_summary_api/blob/master/screenshots/logo-removebg-preview.png?raw=true)
+<p align="center">
+  <img width="480" height="80" src="https://github.com/venkateshs865/capital_guardians_account_summary_api/blob/master/screenshots/logo-removebg-preview.png?raw=true">
+</p>
 # Capital Guardians Account Summary API build
 In this project, we build a account summary page using FastAPI
 ![](https://upload.wikimedia.org/wikiversity/en/8/8c/FastAPI_logo.png)
