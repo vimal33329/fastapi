@@ -189,7 +189,7 @@ http://127.0.0.1:8000/account_summary/?rsf_id=262&search_by_lname=sah&starts_wit
 }
 ```
 <p align="center">
-  <img width="400" height="150" src="https://ml.globenewswire.com/Resource/Download/c83c4886-b215-4cf0-a973-64b8f65e7003">
+  <img width="400" height="120" src="https://ml.globenewswire.com/Resource/Download/c83c4886-b215-4cf0-a973-64b8f65e7003">
 </p>
 
 ## Docker
