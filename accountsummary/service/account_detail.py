@@ -126,9 +126,13 @@ def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
                 FROM `resident_accounts`   
                 WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id}  
                 ORDER BY `resident_accounts`.`lname` ASC LIMIT {limit} offset {offset};""")
-        result["budget_date"] = budget_date
-        result["total_count"] = total_count
+        result["total_count"] = total_count['result'][0]['total_count']
         result["community"] = "ndis"
+
+        for obj in budget_date['result']:
+            for first_obj in result['result']:
+                if first_obj['id'] == obj['id']:
+                    first_obj.update(obj)
         return result
     elif rsf_id is not None and search_by_lname is not None and starts_with is None:
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
@@ -164,9 +168,13 @@ def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
                 WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id} 
                 AND resident_accounts.lname LIKE '%{search_by_lname}%' 
                 ORDER BY `resident_accounts`.`lname` ASC LIMIT {limit} offset {offset};""")
-        result["budget_date"] = budget_date
-        result["total_count"] = total_count
+        result["total_count"] = total_count['result'][0]['total_count']
         result["community"] = "ndis"
+
+        for obj in budget_date['result']:
+            for first_obj in result['result']:
+                if first_obj['id'] == obj['id']:
+                    first_obj.update(obj)
         return result
 
     elif rsf_id is not None and search_by_lname is None and starts_with is not None:
@@ -204,9 +212,13 @@ def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
                 WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id} 
                 AND resident_accounts.lname LIKE '{starts_with}%'
                 ORDER BY `resident_accounts`.`lname` ASC LIMIT {limit} offset {offset};""")
-        result["budget_date"] = budget_date
-        result["total_count"] = total_count
+        result["total_count"] = total_count['result'][0]['total_count']
         result["community"] = "ndis"
+
+        for obj in budget_date['result']:
+            for first_obj in result['result']:
+                if first_obj['id'] == obj['id']:
+                    first_obj.update(obj)
         return result
 
     elif rsf_id is not None and search_by_lname is not None and starts_with is not None:
@@ -247,9 +259,13 @@ def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
                 AND resident_accounts.lname LIKE '{starts_with}%' 
                 AND resident_accounts.lname LIKE '%{search_by_lname}%'
                 ORDER BY `resident_accounts`.`lname` ASC LIMIT {limit} offset {offset};""")
-        result["budget_date"] = budget_date
-        result["total_count"] = total_count
+        result["total_count"] = total_count['result'][0]['total_count']
         result["community"] = "ndis"
+
+        for obj in budget_date['result']:
+            for first_obj in result['result']:
+                if first_obj['id'] == obj['id']:
+                    first_obj.update(obj)
         return result
 
 def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit):
@@ -291,9 +307,13 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
             LEFT JOIN account_viewers ON account_viewers.rsa_id = resident_accounts.id
             WHERE resident_accounts.archived = 0 AND account_viewers.user_id = {user_id} 
             ORDER BY `resident_accounts`.`lname` ASC LIMIT {limit} offset {offset};""")
-        result["budget_date"] = budget_date
-        result["total_count"] = total_count
+        result["total_count"] = total_count['result'][0]['total_count']
         result["community"] = "ndis"
+
+        for obj in budget_date['result']:
+            for first_obj in result['result']:
+                if first_obj['id'] == obj['id']:
+                    first_obj.update(obj)
         return result
 
     elif user_id is not None and search_by_lname is not None and starts_with is None:
@@ -337,11 +357,14 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
             WHERE resident_accounts.archived = 0 AND account_viewers.user_id = {user_id} 
             AND resident_accounts.lname LIKE '%{search_by_lname}%'  
             ORDER BY `resident_accounts`.`lname` ASC LIMIT {limit} offset {offset};""")
-        result["budget_date"] = budget_date
-        result["total_count"] = total_count
+        result["total_count"] = total_count['result'][0]['total_count']
         result["community"] = "ndis"
-        return result
 
+        for obj in budget_date['result']:
+            for first_obj in result['result']:
+                if first_obj['id'] == obj['id']:
+                    first_obj.update(obj)
+        return result
     elif user_id is not None and search_by_lname is None and starts_with is not None:
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                             FROM `resident_accounts`  
@@ -383,9 +406,13 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
             WHERE resident_accounts.archived = 0 AND account_viewers.user_id = {user_id} 
             AND resident_accounts.lname LIKE '{starts_with}%'  
             ORDER BY `resident_accounts`.`lname` ASC LIMIT {limit} offset {offset};""")
-        result["budget_date"] = budget_date
-        result["total_count"] = total_count
+        result["total_count"] = total_count['result'][0]['total_count']
         result["community"] = "ndis"
+
+        for obj in budget_date['result']:
+            for first_obj in result['result']:
+                if first_obj['id'] == obj['id']:
+                    first_obj.update(obj)
         return result
 
     elif user_id is not None and search_by_lname is not None and starts_with is not None:
@@ -432,9 +459,13 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
             AND resident_accounts.lname LIKE '{starts_with}%'
             AND resident_accounts.lname LIKE '%{search_by_lname}%' 
             ORDER BY `resident_accounts`.`lname` ASC LIMIT {limit} offset {offset};""")
-        result["budget_date"] = budget_date
-        result["total_count"] = total_count
+        result["total_count"] = total_count['result'][0]['total_count']
         result["community"] = "ndis"
+
+        for obj in budget_date['result']:
+            for first_obj in result['result']:
+                if first_obj['id'] == obj['id']:
+                    first_obj.update(obj)
         return result
 
 def get_ndis(rsf_id):
