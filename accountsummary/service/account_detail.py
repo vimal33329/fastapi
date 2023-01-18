@@ -365,6 +365,7 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
                 if first_obj['id'] == obj['id']:
                     first_obj.update(obj)
         return result
+    
     elif user_id is not None and search_by_lname is None and starts_with is not None:
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                             FROM `resident_accounts`  
