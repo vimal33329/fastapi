@@ -65,7 +65,7 @@ To step on your local follow the steps
 - Open Terminal 
 - To install the dependencies and packages, run the below command.
 ```sh
-pip install -r .\requirement.txt
+pip install -r .\requirements.txt
 ```
 It Install the following dependencies and packages,
 - fastapi~=0.84.0
