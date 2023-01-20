@@ -1,7 +1,13 @@
 from db import Database
 from fastapi import HTTPException, status
+from datetime import datetime, timedelta
+from ..utility import date_conversion
+
 db = Database()
 def get_acc_details(rsf_id, search_by_lname, starts_with, offset, limit):
+    if rsf_id is not None and search_by_lname.isdigit():
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                                detail=f'Search Value must be string not like {search_by_lname}')
     if rsf_id is not None and search_by_lname is None and starts_with is None:
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                                         FROM `resident_accounts`  
@@ -96,6 +102,7 @@ def get_acc_details(rsf_id, search_by_lname, starts_with, offset, limit):
 
 def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
     if rsf_id is not None and search_by_lname is None and starts_with is None:
+
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                                         FROM `resident_accounts`  
                                         WHERE resident_accounts.archived = 0 AND resident_accounts.rsf_id = {rsf_id};""")
@@ -133,6 +140,33 @@ def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
             for first_obj in result['result']:
                 if first_obj['id'] == obj['id']:
                     first_obj.update(obj)
+
+        for dates in result['result']:
+            d1 = str(dates['start_date'])
+            d2 = str(dates['end_date'])
+            item = {
+                "start_date":d1,
+                "end_date":d2
+            }
+            res = date_conversion.get_days(item)
+            dates.update(res)
+
+        for objcolorcode in result['result']:
+            res1 = date_conversion.total_calculate(objcolorcode)
+            res2 = date_conversion.core_calculate(objcolorcode)
+            res3 = date_conversion.capacity_calculate(objcolorcode)
+            res4 = date_conversion.capital_calculate(objcolorcode)
+            objcolorcode.update(res1)
+            objcolorcode.update(res2)
+            objcolorcode.update(res3)
+            objcolorcode.update(res4)
+
+        for objorangeccode in result['result']:
+            orange_res = date_conversion.total_calculate(objorangeccode)
+            objorangeccode.update(orange_res)
+            oran = date_conversion.orange_code(objorangeccode)
+            objorangeccode.update(oran)
+
         return result
     elif rsf_id is not None and search_by_lname is not None and starts_with is None:
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
@@ -175,6 +209,33 @@ def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
             for first_obj in result['result']:
                 if first_obj['id'] == obj['id']:
                     first_obj.update(obj)
+
+        for dates in result['result']:
+            d1 = str(dates['start_date'])
+            d2 = str(dates['end_date'])
+            item = {
+                "start_date": d1,
+                "end_date": d2
+            }
+            res = date_conversion.get_days(item)
+            dates.update(res)
+
+        for objcolorcode in result['result']:
+            res1 = date_conversion.total_calculate(objcolorcode)
+            res2 = date_conversion.core_calculate(objcolorcode)
+            res3 = date_conversion.capacity_calculate(objcolorcode)
+            res4 = date_conversion.capital_calculate(objcolorcode)
+            objcolorcode.update(res1)
+            objcolorcode.update(res2)
+            objcolorcode.update(res3)
+            objcolorcode.update(res4)
+
+        for objorangeccode in result['result']:
+            orange_res = date_conversion.total_calculate(objorangeccode)
+            objorangeccode.update(orange_res)
+            oran = date_conversion.orange_code(objorangeccode)
+            objorangeccode.update(oran)
+
         return result
 
     elif rsf_id is not None and search_by_lname is None and starts_with is not None:
@@ -219,6 +280,33 @@ def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
             for first_obj in result['result']:
                 if first_obj['id'] == obj['id']:
                     first_obj.update(obj)
+
+        for dates in result['result']:
+            d1 = str(dates['start_date'])
+            d2 = str(dates['end_date'])
+            item = {
+                "start_date": d1,
+                "end_date": d2
+            }
+            res = date_conversion.get_days(item)
+            dates.update(res)
+
+        for objcolorcode in result['result']:
+            res1 = date_conversion.total_calculate(objcolorcode)
+            res2 = date_conversion.core_calculate(objcolorcode)
+            res3 = date_conversion.capacity_calculate(objcolorcode)
+            res4 = date_conversion.capital_calculate(objcolorcode)
+            objcolorcode.update(res1)
+            objcolorcode.update(res2)
+            objcolorcode.update(res3)
+            objcolorcode.update(res4)
+
+        for objorangeccode in result['result']:
+            orange_res = date_conversion.total_calculate(objorangeccode)
+            objorangeccode.update(orange_res)
+            oran = date_conversion.orange_code(objorangeccode)
+            objorangeccode.update(oran)
+
         return result
 
     elif rsf_id is not None and search_by_lname is not None and starts_with is not None:
@@ -266,6 +354,33 @@ def get_account_ndis(rsf_id, search_by_lname, starts_with, offset, limit):
             for first_obj in result['result']:
                 if first_obj['id'] == obj['id']:
                     first_obj.update(obj)
+
+        for dates in result['result']:
+            d1 = str(dates['start_date'])
+            d2 = str(dates['end_date'])
+            item = {
+                "start_date": d1,
+                "end_date": d2
+            }
+            res = date_conversion.get_days(item)
+            dates.update(res)
+
+        for objcolorcode in result['result']:
+            res1 = date_conversion.total_calculate(objcolorcode)
+            res2 = date_conversion.core_calculate(objcolorcode)
+            res3 = date_conversion.capacity_calculate(objcolorcode)
+            res4 = date_conversion.capital_calculate(objcolorcode)
+            objcolorcode.update(res1)
+            objcolorcode.update(res2)
+            objcolorcode.update(res3)
+            objcolorcode.update(res4)
+
+        for objorangeccode in result['result']:
+            orange_res = date_conversion.total_calculate(objorangeccode)
+            objorangeccode.update(orange_res)
+            oran = date_conversion.orange_code(objorangeccode)
+            objorangeccode.update(oran)
+
         return result
 
 def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit):
@@ -364,8 +479,34 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
             for first_obj in result['result']:
                 if first_obj['id'] == obj['id']:
                     first_obj.update(obj)
+
+        for dates in result['result']:
+            d1 = str(dates['start_date'])
+            d2 = str(dates['end_date'])
+            item = {
+                "start_date": d1,
+                "end_date": d2
+            }
+            res = date_conversion.get_days(item)
+            dates.update(res)
+
+        for objcolorcode in result['result']:
+            res1 = date_conversion.total_calculate(objcolorcode)
+            res2 = date_conversion.core_calculate(objcolorcode)
+            res3 = date_conversion.capacity_calculate(objcolorcode)
+            res4 = date_conversion.capital_calculate(objcolorcode)
+            objcolorcode.update(res1)
+            objcolorcode.update(res2)
+            objcolorcode.update(res3)
+            objcolorcode.update(res4)
+
+        for objorangeccode in result['result']:
+            orange_res = date_conversion.total_calculate(objorangeccode)
+            objorangeccode.update(orange_res)
+            oran = date_conversion.orange_code(objorangeccode)
+            objorangeccode.update(oran)
+
         return result
-    
     elif user_id is not None and search_by_lname is None and starts_with is not None:
         total_count = db.query(query=f"""SELECT count(resident_accounts.id) as total_count
                             FROM `resident_accounts`  
@@ -414,6 +555,33 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
             for first_obj in result['result']:
                 if first_obj['id'] == obj['id']:
                     first_obj.update(obj)
+
+        for dates in result['result']:
+            d1 = str(dates['start_date'])
+            d2 = str(dates['end_date'])
+            item = {
+                "start_date": d1,
+                "end_date": d2
+            }
+            res = date_conversion.get_days(item)
+            dates.update(res)
+
+        for objcolorcode in result['result']:
+            res1 = date_conversion.total_calculate(objcolorcode)
+            res2 = date_conversion.core_calculate(objcolorcode)
+            res3 = date_conversion.capacity_calculate(objcolorcode)
+            res4 = date_conversion.capital_calculate(objcolorcode)
+            objcolorcode.update(res1)
+            objcolorcode.update(res2)
+            objcolorcode.update(res3)
+            objcolorcode.update(res4)
+
+        for objorangeccode in result['result']:
+            orange_res = date_conversion.total_calculate(objorangeccode)
+            objorangeccode.update(orange_res)
+            oran = date_conversion.orange_code(objorangeccode)
+            objorangeccode.update(oran)
+
         return result
 
     elif user_id is not None and search_by_lname is not None and starts_with is not None:
@@ -467,6 +635,33 @@ def get_account_by_user_id(user_id, search_by_lname, starts_with, offset, limit)
             for first_obj in result['result']:
                 if first_obj['id'] == obj['id']:
                     first_obj.update(obj)
+
+        for dates in result['result']:
+            d1 = str(dates['start_date'])
+            d2 = str(dates['end_date'])
+            item = {
+                "start_date": d1,
+                "end_date": d2
+            }
+            res = date_conversion.get_days(item)
+            dates.update(res)
+
+        for objcolorcode in result['result']:
+            res1 = date_conversion.total_calculate(objcolorcode)
+            res2 = date_conversion.core_calculate(objcolorcode)
+            res3 = date_conversion.capacity_calculate(objcolorcode)
+            res4 = date_conversion.capital_calculate(objcolorcode)
+            objcolorcode.update(res1)
+            objcolorcode.update(res2)
+            objcolorcode.update(res3)
+            objcolorcode.update(res4)
+
+        for objorangeccode in result['result']:
+            orange_res = date_conversion.total_calculate(objorangeccode)
+            objorangeccode.update(orange_res)
+            oran = date_conversion.orange_code(objorangeccode)
+            objorangeccode.update(oran)
+
         return result
 
 def get_ndis(rsf_id):
