@@ -36,7 +36,7 @@ def get_days(item):
             'remaining_days': rounded_remaining_days,
             'spending_days': rounded_spending_days,
             'rounded_percentage_date': rounded_percentage,
-            "date_color_code": "#38572"
+            "date_color_code": "#385723"
         }
 
 
